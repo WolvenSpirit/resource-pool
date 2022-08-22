@@ -2,6 +2,10 @@
 
 A generic pool class to be used for things that would usually be open connections objects or socket file descriptor (pointers).
 
+##### Installing the library
+
+Use the `install.sh` script after you have a working vcpkg cloned to your work dir (If you already have a system-wide install of vcpkg or in another project you could share it by symlinking it as well). This symlinks the portfile shipped with the library to vcpkg ports/ dir then attempts an install which will invoke our CMakeLists.txt file. Knowing all of this, if something goes wrong usually you can fix it by editing one of these 2 files.
+
 
 ```cpp
 // Example:
