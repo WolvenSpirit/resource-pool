@@ -26,7 +26,7 @@ install(
 install(
     EXPORT rsTargets # use exported name
     FILE rsTargets.cmake
-    DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/installed/x64-linux/share/resource-pool/cmake/
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/resource-pool/cmake"
     NAMESPACE resource-pool::
 )
 install(
