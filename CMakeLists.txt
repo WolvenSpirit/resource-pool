@@ -16,9 +16,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER resource_pool.hpp
 
 include(GNUInstallDirs)
 
-install(TARGETS ${PROJECT_NAME} EXPORT rsTargets # rsTargets needs to be defined here
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+install(
+    TARGETS                     ${PROJECT_NAME} EXPORT rsTargets # rsTargets needs to be defined here
+    LIBRARY DESTINATION         ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION   ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 install(
@@ -27,7 +28,10 @@ install(
     DESTINATION "${CMAKE_INSTALL_DATADIR}/resource-pool/cmake"
     NAMESPACE YourLibrary::
 )
-install(FILES "resource-pool-config.cmake"  "${CMAKE_CURRENT_BINARY_DIR}/resource-poolConfigVersion.cmake"
+install(
+    FILES       ${CMAKE_CURRENT_BINARY_DIR}/resource-pool-config.cmake  
+                ${CMAKE_CURRENT_BINARY_DIR}/resource-poolConfigVersion.cmake
+
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/../share/resource-pool)
 
 include(CPack)
