@@ -31,7 +31,7 @@ install(
 )
 install(
     FILES       ${CMAKE_CURRENT_BINARY_DIR}/resource-pool-config.cmake  
-                ${CMAKE_CURRENT_BINARY_DIR}/resource-poolConfigVersion.cmake
+    #           ${CMAKE_CURRENT_BINARY_DIR}/resource-poolConfigVersion.cmake
 
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/../share/resource-pool)
 
