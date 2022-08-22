@@ -30,7 +30,7 @@ install(
     NAMESPACE YourLibrary::
 )
 install(
-    FILES       ${SOURCE_PATH}/resource-pool-config.cmake
+    FILES       resource-pool-config.cmake
     #           ${CMAKE_CURRENT_BINARY_DIR}/resource-poolConfigVersion.cmake
 
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/../share/resource-pool)
