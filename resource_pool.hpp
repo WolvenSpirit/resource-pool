@@ -69,3 +69,53 @@ public:
 
     T get();
 };
+
+// --- Implementation
+
+template <typename T>
+Pool<T>::Pool()
+{
+    addAlloc = _add;
+}
+
+template <typename T>
+Pool<T>::Pool(int capacity)
+{
+    pool.resize(capacity);
+    addAlloc = _add;
+}
+
+template <typename T>
+void Pool<T>::_add(T t, std::deque<T> &p)
+{
+    std::lock_guard<std::mutex> guard(lock);
+    pool.push_back(t);
+}
+
+template <typename T>
+void Pool<T>::add(T &t)
+{
+    std::lock_guard<std::mutex> guard(lock);
+    addAlloc(t, pool);
+}
+template <typename T>
+Pool<T>::Pool(const std::function<void(T &, std::deque<T> &)> TAllocAdd)
+{
+    addAlloc = TAllocAdd;
+}
+
+template <typename T>
+Pool<T>::Pool(int capacity, const std::function<void(T, std::deque<T> &)> TAllocAdd)
+{
+    pool.resize(capacity);
+    addAlloc = TAllocAdd;
+}
+
+template <typename T>
+T Pool<T>::get()
+{
+    std::lock_guard<std::mutex> guard(lock);
+    T &t = pool.back();
+    pool.pop_back();
+    return std::move(t);
+}

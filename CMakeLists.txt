@@ -5,7 +5,7 @@ include(CMakePackageConfigHelpers)
 #include(CTest)
 #enable_testing()
 
-add_library(resource-pool STATIC resource_pool.cpp)
+add_library(resource-pool STATIC resource_pool.hpp resource_pool.cpp)
 #add_executable(resource-pool main.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
@@ -19,7 +19,10 @@ include(GNUInstallDirs)
 
 install(
     TARGETS                     ${PROJECT_NAME} EXPORT rsTargets # rsTargets needs to be defined here
+#    FILE_SET                    HEADERS
     LIBRARY DESTINATION         ${CMAKE_INSTALL_LIBDIR}
+#    ARCHIVE DESTINATION         ${CMAKE_INSTALL_LIBDIR}
+#    RUNTIME DESTINATION         ${CMAKE_INSTALL_BINDIR}
     PUBLIC_HEADER DESTINATION   ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
