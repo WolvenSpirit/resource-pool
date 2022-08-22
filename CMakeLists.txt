@@ -28,6 +28,6 @@ install(
     NAMESPACE YourLibrary::
 )
 install(FILES "resource-pool-config.cmake"  "${CMAKE_CURRENT_BINARY_DIR}/resource-poolConfigVersion.cmake"
-    DESTINATION ${CMAKE_INSTALL_SHAREDIR}/resource-pool)
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/../share/resource-pool)
 
 include(CPack)
