@@ -10,7 +10,7 @@ Use the `install.sh` script after you have a working vcpkg cloned to your work d
 ```cpp
 // Example:
 #include <iostream>
-#include <resource_pool>
+#include <resource_pool.hpp>
 #include <functional>
 #include <memory>
 

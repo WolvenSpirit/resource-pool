@@ -44,11 +44,11 @@ public:
      */
     Pool(int capacity);
 
-    std::function<void(T &, std::deque<T> &)> addAlloc;
+    std::function<void(T , std::deque<T> &)> addAlloc;
 
     void _add(T t, std::deque<T> &p);
 
-    void add(T &t);
+    void add(T t);
 
     /**
      * @brief The constructor can take an allocator function as argument, capacity or both.
@@ -56,7 +56,7 @@ public:
      * @param TAllocAdd
      * @return void
      */
-    Pool(const std::function<void(T &, std::deque<T> &)> TAllocAdd);
+    Pool(const std::function<void(T , std::deque<T> &)> TAllocAdd);
 
     /**
      * @brief The constructor can take an allocator function as argument, capacity or both.
@@ -65,7 +65,7 @@ public:
      * @param TAllocAdd
      * @return void
      */
-    Pool(int capacity, const std::function<void(T, std::deque<T> &)> TAllocAdd);
+    Pool(int capacity, const std::function<void(T , std::deque<T> &)> TAllocAdd);
 
     T get();
 };
@@ -93,19 +93,19 @@ void Pool<T>::_add(T t, std::deque<T> &p)
 }
 
 template <typename T>
-void Pool<T>::add(T &t)
+void Pool<T>::add(T t)
 {
     std::lock_guard<std::mutex> guard(lock);
     addAlloc(t, pool);
 }
 template <typename T>
-Pool<T>::Pool(const std::function<void(T &, std::deque<T> &)> TAllocAdd)
+Pool<T>::Pool(const std::function<void(T , std::deque<T> &)> TAllocAdd)
 {
     addAlloc = TAllocAdd;
 }
 
 template <typename T>
-Pool<T>::Pool(int capacity, const std::function<void(T, std::deque<T> &)> TAllocAdd)
+Pool<T>::Pool(int capacity, const std::function<void(T , std::deque<T> &)> TAllocAdd)
 {
     pool.resize(capacity);
     addAlloc = TAllocAdd;
