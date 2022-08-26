@@ -15,6 +15,9 @@
 #include <memory>
 
 template <typename T>
+class PoolObject;
+
+template <typename T>
 class Pool
 {
 private:
@@ -68,6 +71,8 @@ public:
     Pool(int capacity, const std::function<void(T , std::deque<T> &)> TAllocAdd);
 
     T get();
+
+    PoolObject<T> getManaged();
 };
 
 // --- Implementation
@@ -118,4 +123,41 @@ T Pool<T>::get()
     T &t = pool.back();
     pool.pop_back();
     return std::move(t);
+}
+
+/**
+ * @brief Class that handles recycling back to the pool.
+ * 
+ */
+template <typename T>
+class PoolObject {
+    public:
+    T value;
+    Pool<T> *pool;
+    /**
+     * @brief Construct a new Pool Object
+     * 
+     * @param t 
+     * @param p 
+     */
+    PoolObject(T t, Pool<T> *p) {
+        value = t;
+        pool = p;
+    }
+    /**
+     * @brief Recycle the Pool Object
+     * 
+     */
+    ~PoolObject() {
+        pool->add(value);
+    }
+};
+
+/**
+ * @brief Returns a managed object class of type T which handles recycling T back to the pool
+ * 
+ */
+template <typename T>
+PoolObject<T> Pool<T>::getManaged() {
+    return PoolObject<T>(this->get(),this);
 }
