@@ -24,10 +24,10 @@ int main()
     Pool<int *> p(alloc);
     p.add(i);p.add(i2);p.add(i3);
     auto x = p.getManaged();
-    std::cout << *x.value << std::endl;
+    std::cout << **x << std::endl;
     auto y = p.getManaged();
-    std::cout << *y.value << std::endl;
+    std::cout << **y << std::endl;
     auto z = p.getManaged();
-    std::cout << *z.value << std::endl;
+    std::cout << **z << std::endl;
     return 0;
 }

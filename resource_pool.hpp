@@ -151,6 +151,14 @@ class PoolObject {
     ~PoolObject() {
         pool->add(value);
     }
+    /**
+     * @brief overloaded * simplifies usage of the object to be used as *o instead of *o.value
+     * 
+     * @return T 
+     */
+    T operator *() {
+        return this->value;
+    }
 };
 
 /**
