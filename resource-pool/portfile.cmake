@@ -1,9 +1,9 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO WolvenSpirit/resource-pool
-    REF 2d16bed1ef1caa9ec5f56659fcb4c9f3867593a9
-    SHA512 c15287ddc2b1637d9c17ce80de3be8a75e9091b227e0961cace9ab8bb38175bd604f9534cccfd5afaaeb6c7271df4d291b74f931f8f10c6b8ae70edb6fd1511d
-    HEAD_REF install
+    REF 92b00780aaa7a18ac7d2228896e1af67b99374cb
+    SHA512 bcd112f1f8533bd40c5b837b8fd72049866b738cac887ceed53e827ffbaaabd17f4c1e25dc22f8322c674ca4cbc77dc4e5e8e2bf699b2cd2459a1b321c21174f
+    HEAD_REF main
     GITHUB_HOST https://github.com
 #    [AUTHORIZATION_TOKEN <${SECRET_FROM_FILE}>]
 #    [FILE_DISAMBIGUATOR <N>]

@@ -10,31 +10,56 @@ Use the `install.sh` script after you have a working vcpkg cloned to your work d
 ```cpp
 // Example:
 #include <iostream>
-#include <resource_pool.hpp>
+#include <deque>
+#include <mutex>
 #include <functional>
 #include <memory>
+#include <resource_pool.hpp>
 
-// alias, I know `ptr` is a poor choice, it's short though
-typedef std::shared_ptr<int> ptr;
+int main()
+{
+    // Make some fake pointers
+    auto n = 3;
+    int *i = &n;
+    auto n2 = 5;
+    int *i2 = &n2;
+    auto n3 = 7;
+    int *i3 = &n3;
 
-int main() {
-    ptr i = std::make_unique<int>(3);
-
-    // The optional allocator, it doesn't have to be a lambda, it can also be a regular function with same signature.
-    auto alloc = []( ptr t, std::deque< ptr> &pool) {
+    // Custom lambda where you can create instances and possibly establish connections
+    auto alloc = [](int *t, std::deque<int *> &pool)
+    {
         std::cout << "called" << std::endl;
         pool.push_back(std::move(t));
         return;
     };
-    // Set capacity and pass the custom function
-    Pool< ptr> p(50,alloc);
-    // Add to pool
+
+    Pool<int *> p(alloc);
+
     p.add(i);
-    // Get from pool
-    ptr z = p.get();
-    // Output
-    std::cout << *z.get() << std::endl;
+    p.add(i2);
+    p.add(i3);
+
+    // Get the stored objects
+    auto x = p.getManaged();
+    std::cout << **x << std::endl; // After x goes out of scope the value is recycled to the pool
+    auto y = p.getManaged();
+    std::cout << **y << std::endl;
+    auto z = p.getManaged();
+    std::cout << **z << std::endl;
     return 0;
 }
+```
 
+Output: 
+```sh
+called
+called
+called
+7
+5
+3
+called
+called
+called
 ```
